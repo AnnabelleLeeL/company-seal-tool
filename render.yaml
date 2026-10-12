@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: company-seal-tool
+    runtime: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    autoDeploy: true

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>颜色智能抠图工具</title>
+  <link rel="stylesheet" href="cutout.css" />
+  <link rel="stylesheet" href="editor.css" />
+  <link rel="stylesheet" href="mobile-fix.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div><p>LOCAL COLOR CUTOUT</p><h1>颜色抠图工具</h1></div>
+    <div class="top-actions"><label class="top-upload">上传图片<input id="topFileInput" type="file" accept="image/jpeg,image/png,image/webp"></label><button id="topReset">恢复原图</button><button id="topDownload">下载 PNG</button><span>基础抠图在本机完成</span></div>
+  </header>
+  <main>
+    <aside>
+      <section class="card">
+        <span class="step">01</span><h2>打开图片</h2>
+        <label class="upload">选择 PNG、JPG 或 WebP
+          <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp,image/bmp" />
+          <small id="fileName">支持拖放图片到右侧画布</small>
+        </label>
+      </section>
+      <section class="card controls disabled" id="controls">
+        <span class="step">02</span><h2>选择要保留的颜色</h2>
+        <p class="tip">点击原图里的目标颜色，工具会保留整张图中相近颜色的完整图案。</p>
+        <div class="color-row"><span id="swatch"></span><input id="colorInput" type="color" value="#d52c38"><output id="colorHex">#D52C38</output></div>
+        <div class="pair"><button id="addColor">＋ 增加颜色</button><button id="subtractColor">－ 减少颜色</button></div>
+        <div id="colorChips" class="chips"></div>
+        <div class="mode-tabs"><button id="keepMode" class="active">保留画笔</button><button id="eraseMode">擦除画笔</button><button id="eyedropperMode">吸管</button></div>
+        <label>画笔大小 <output id="brushValue">28 px</output></label>
+        <input id="brushSize" type="range" min="2" max="120" value="28" />
+        <div class="pair"><button id="undoBtn">撤销</button><button id="redoBtn">重做</button></div>
+        <label>颜色范围 <output id="toleranceValue">24</output></label>
+        <input id="tolerance" type="range" min="2" max="80" value="24" />
+        <div class="seg-modes"><button id="preciseMode" class="active">精确颜色抠图</button><button id="completionMode">遮挡补全</button></div>
+        <label>连接断口 <output id="bridgeValue">3 px</output></label>
+        <input id="bridge" type="range" min="0" max="16" value="3" />
+        <label>边缘柔化 <output id="featherValue">1 px</output></label>
+        <input id="feather" type="range" min="0" max="6" value="1" />
+        <label>去除杂点 <output id="despeckleValue">20 px</output></label>
+        <input id="despeckle" type="range" min="0" max="300" value="20" />
+        <label>边缘平滑 <output id="smoothValue">1 px</output></label>
+        <input id="smooth" type="range" min="0" max="5" value="1" />
+        <label class="check"><input id="hueFamily" type="checkbox" checked> 识别同色系深浅变化（推荐）</label>
+        <label class="check"><input id="fillHoles" type="checkbox" checked> 清除黑字并重建完整彩色轮廓</label>
+        <label class="check"><input id="invert" type="checkbox"> 反选：删除所选颜色</label>
+        <button id="processBtn" class="secondary">重新处理</button>
+      </section>
+      <section class="card disabled" id="viewControls"><h2>画布视图</h2><div class="pair three"><button id="zoomOut">－</button><button id="zoomReset">100%</button><button id="zoomIn">＋</button></div><p class="tip">按住空格或切换拖动工具可平移画布。</p></section>
+      <section class="card actions">
+        <button id="downloadBtn" class="primary" disabled>下载透明 PNG</button>
+        <button id="resetBtn" class="text" disabled>恢复原图</button>
+        <p id="status">请选择一张图片开始</p>
+      </section>
+      <div class="local-note"><b>隐私说明</b><br>基础抠图在本机完成，原图不会上传。</div>
+    </aside>
+    <section class="workspace" id="dropZone">
+      <div class="toolbar"><span id="modeText">等待图片</span><span id="dimensions">—</span></div>
+      <div class="stage empty" id="stage">
+        <div id="placeholder"><b>拖入一张图片</b><span>然后点击想保留的颜色</span></div>
+        <div class="editor" id="compare" hidden>
+          <div class="canvas-wrap checker" id="canvasWrap"><canvas id="resultCanvas"></canvas><canvas id="overlayCanvas"></canvas></div>
+          <canvas id="sourceCanvas" hidden></canvas>
+          <div id="loupe" class="loupe" hidden><canvas id="loupeCanvas" width="140" height="108"></canvas><b id="loupeHex">#000000</b><span id="loupeRgb">RGB 0, 0, 0</span><span id="loupeLab">Lab 0, 0, 0</span></div>
+        </div>
+      </div>
+      <footer class="bottom-bar"><div class="compare-buttons"><button id="showOriginal">原图</button><button id="showResult" class="active">结果</button><button id="holdCompare">按住对比</button></div><div class="backgrounds"><span>预览背景</span><button data-bg="checker" class="active">透明</button><button data-bg="white">白</button><button data-bg="black">黑</button><label>自定义 <input id="customBg" type="color" value="#86a6c7"></label></div><strong id="processStatus">默认测试图准备中…</strong></footer>
+    </section>
+  </main>
+  <dialog id="completionDialog"><h2>遮挡补全</h2><p>此模式会根据两侧已识别区域的轮廓，生成被遮挡部分的几何推测。新增像素会以斜线蒙版标出，并明确记为“AI推测内容”。它不是原图真实细节。</p><button id="cancelCompletion">取消</button><button id="confirmCompletion">生成推测补全</button></dialog>
+  <div class="toast" id="toast"></div>
+  <script src="cutout.js"></script>
+  <script src="smart-color.js"></script>
+</body>
+</html>
