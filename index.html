@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>公司电子盖章工具</title>
-  <link rel="stylesheet" href="styles.css?v=22" />
+  <link rel="stylesheet" href="styles.css?v=23" />
 </head>
 <body>
   <header class="topbar">
@@ -79,7 +79,7 @@
           <button id="undoBtn" class="secondary">撤销最后一枚</button>
         </div>
         <div id="seamControls" hidden>
-          <p class="hint">按页数自动切片，逐页贴在同一侧边缘。</p>
+          <p class="hint">按住页面边缘的骑缝章直接拖动，所有页会同步位置，导出与预览一致。</p>
           <label>装订边</label>
           <div class="edge-options">
             <button data-edge="left">左侧</button>
@@ -87,6 +87,7 @@
           </div>
           <label>距页面顶部 <output id="seamOffsetValue">45%</output></label>
           <input id="seamOffset" type="range" min="10" max="85" value="45" />
+          <label>距页面边缘 <output id="seamPositionValue">5.0 mm</output></label>
           <label>骑缝章完整直径 <output id="seamSizeValue">38 mm（跟随全局）</output></label>
           <label>骑缝章深浅 <output id="seamOpacityValue">100%</output></label>
           <input id="seamOpacity" type="range" min="15" max="150" value="100" />
@@ -140,11 +141,11 @@
   <div id="toast" class="toast"></div>
   <div id="blockingError" class="blocking-error" hidden></div>
   <script>window.addEventListener('error',function(e){var b=document.getElementById('blockingError');var s=document.getElementById('status');b.hidden=false;b.textContent='程序加载失败：'+(e.message||'请刷新页面后重试');if(s)s.textContent='程序未启动';});</script>
-  <script src="vendor/pdf.min.js?v=22"></script>
-  <script src="vendor/pdf-lib.min.js?v=22"></script>
-  <script src="vendor/jszip.min.js?v=22"></script>
-  <script src="vendor/docx-preview.min.js?v=22"></script>
-  <script src="vendor/html2canvas.min.js?v=22"></script>
-  <script src="app.js?v=22"></script>
+  <script src="vendor/pdf.min.js?v=23"></script>
+  <script src="vendor/pdf-lib.min.js?v=23"></script>
+  <script src="vendor/jszip.min.js?v=23"></script>
+  <script src="vendor/docx-preview.min.js?v=23"></script>
+  <script src="vendor/html2canvas.min.js?v=23"></script>
+  <script src="app.js?v=23"></script>
 </body>
 </html>
