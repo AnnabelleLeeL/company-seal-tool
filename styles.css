@@ -32,6 +32,7 @@ h1 { margin:0; font:600 23px/1.1 Georgia,"Songti SC",serif; letter-spacing:.08em
 .stamp.selected { border-color:#2b6654;box-shadow:0 0 0 2px #2b665422; }
 .ink-multiply { mix-blend-mode:multiply; }
 .signature-mark { position:absolute;z-index:11;cursor:grab;touch-action:none;border:1px dashed transparent;line-height:0; }.signature-mark:hover,.signature-mark.selected{border-color:#315d91;background:#315d9108}.signature-mark img{width:100%;height:100%;object-fit:contain;pointer-events:none}.signature-mark button{position:absolute;right:-9px;top:-9px;width:19px;height:19px;border:0;border-radius:50%;background:#333;color:#fff;display:none;line-height:17px;padding:0}.signature-mark:hover button{display:block}
+.docx-convert-host{position:fixed;left:-20000px;top:0;z-index:-1;background:#fff}.signature-options{margin-top:5px}
 .seam-preview { position:absolute;z-index:8;pointer-events:none;overflow:hidden;opacity:.82; }.seam-preview img { position:absolute;height:100%;max-width:none; }
 .toast { position:fixed;z-index:100;bottom:28px;left:50%;transform:translate(-50%,20px);opacity:0;background:#242927;color:white;padding:10px 16px;border-radius:3px;font-size:12px;transition:.25s;pointer-events:none; }.toast.show { opacity:1;transform:translate(-50%,0); }
 .blocking-error { position:fixed;inset:auto 20px 20px 20px;z-index:200;background:#8f171d;color:#fff;padding:14px 18px;text-align:center;border-radius:4px;font-size:13px; }
