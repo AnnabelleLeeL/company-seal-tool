@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>公司电子盖章工具</title>
-  <link rel="stylesheet" href="styles.css?v=28" />
+  <link rel="stylesheet" href="styles.css?v=30" />
 </head>
 <body>
   <header class="topbar">
@@ -12,7 +12,7 @@
       <p class="eyebrow">LOCAL DOCUMENT SEALING</p>
       <h1>公司电子盖章工具</h1>
     </div>
-    <div class="privacy"><a href="cutout.html" style="color:#fff;margin-right:18px">颜色抠图工具</a><span></span> 本地处理 · 文件不上传</div>
+    <div class="privacy"><a href="cutout.html" style="color:#fff;margin-right:18px">颜色抠图工具</a><span></span> PDF 本地处理 · Word 安全转换</div>
   </header>
 
   <main class="app-shell">
@@ -23,8 +23,8 @@
         <div class="upload-card">
           <span class="upload-icon">文件</span>
           <strong id="pdfLabel">选择 PDF 或 Word 文件</strong>
-          <small>支持 PDF、DOCX，文件仅在当前浏览器中打开</small>
-          <input id="pdfInput" class="visible-file" type="file" accept="application/pdf,.pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx" aria-label="选择 PDF 或 Word 文件" />
+          <small>支持 PDF、DOCX、旧版 DOC（Word 按原始分页转换，完成后立即删除临时文件）</small>
+          <input id="pdfInput" class="visible-file" type="file" accept="application/pdf,.pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.docx,application/msword,.doc" aria-label="选择 PDF 或 Word 文件" />
         </div>
         <div class="upload-card compact">
           <span class="seal-preview-wrap"><img id="sealPreview" alt="印章预览" hidden><span id="sealPlaceholder" class="seal-dot"></span></span>
@@ -141,11 +141,11 @@
   <div id="toast" class="toast"></div>
   <div id="blockingError" class="blocking-error" hidden></div>
   <script>window.addEventListener('error',function(e){var b=document.getElementById('blockingError');var s=document.getElementById('status');b.hidden=false;b.textContent='程序加载失败：'+(e.message||'请刷新页面后重试');if(s)s.textContent='程序未启动';});</script>
-  <script src="vendor/pdf.min.js?v=28"></script>
-  <script src="vendor/pdf-lib.min.js?v=28"></script>
-  <script src="vendor/jszip.min.js?v=28"></script>
-  <script src="vendor/docx-preview.min.js?v=28"></script>
-  <script src="vendor/html2canvas.min.js?v=28"></script>
-  <script src="app.js?v=28"></script>
+  <script src="vendor/pdf.min.js?v=30"></script>
+  <script src="vendor/pdf-lib.min.js?v=30"></script>
+  <script src="vendor/jszip.min.js?v=30"></script>
+  <script src="vendor/docx-preview.min.js?v=30"></script>
+  <script src="vendor/html2canvas.min.js?v=30"></script>
+  <script src="app.js?v=30"></script>
 </body>
 </html>
