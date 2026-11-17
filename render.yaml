@@ -1,7 +1,7 @@
 services:
   - type: web
     name: company-seal-tool
-    runtime: static
-    buildCommand: npm run build
-    staticPublishPath: ./dist
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
     autoDeploy: true
